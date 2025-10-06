@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 60% 18%; /* Darker Royal Blue: rgb(18, 29, 61) */
+    --foreground: 0 0% 96%; /* Warm White #F5F5F5 */
+    --card: 225 60% 15%; /* Even darker blue for cards */
+    --card-foreground: 0 0% 96%;
+    --popover: 225 60% 15%; /* Popover background, same as card */
+    --popover-foreground: 0 0% 96%;
+    --primary: 225 60% 18%; /* Darker Royal Blue, same as background */
+    --primary-foreground: 0 0% 100%; /* White text on royal blue */
+    --secondary: 225 60% 25%; /* A slightly lighter blue for secondary elements */
+    --secondary-foreground: 0 0% 96%;
+    --muted: 225 60% 12%; /* Darker muted blue */
+    --muted-foreground: 0 0% 63%; /* Grey for muted text #A1A1AA */
+    --accent: 225 60% 12%; /* Darker accent blue */
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 84% 60%; /* Red for destructive actions #DC2626 */
+    --destructive-foreground: 0 0% 96%;
+    --border: 225 60% 22%; /* Darker royal blue border */
+    --input: 225 60% 12%; /* Darker input background blue */
+    --ring: 33 63% 75%; /* Lighter Gold for focus ring */
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .luxury-gradient {
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #f0c674 0%, #f0c674 100%); /* Lighter Gold gradient */
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #f0c674 0%, #f0c674 100%); /* Lighter Gold text gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-border {
+    border: 1px solid #f0c674; /* Lighter Gold border */
+    box-shadow: 0 0 20px rgba(240, 198, 116, 0.3); /* Lighter Gold glow */
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 30px rgba(240, 198, 116, 0.6); /* Enhanced lighter gold glow on hover */
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+
+  .radial-gradient-overlay {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+  }
+
+  /* New section dividers inspired by CG Barbershop */
+  .section-divider {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-divider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #f0c674 50%, transparent 100%);
+  }
+
+  /* Enhanced card styling */
+  .premium-card {
+    background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(240, 198, 116, 0.2);
+  }
+
+  .premium-card:hover {
+    border-color: rgba(240, 198, 116, 0.4);
+    box-shadow: 0 8px 32px rgba(240, 198, 116, 0.15);
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f0c674; /* Lighter gold scrollbar thumb */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f0c674; /* Lighter gold on hover */
+}
