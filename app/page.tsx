@@ -30,7 +30,6 @@ import {
   Star,
   Award,
   Facebook,
-  
 } from "lucide-react";
 
 import { FaTiktok } from "react-icons/fa";
@@ -41,7 +40,6 @@ import { WhatsAppModal } from "@/components/whatsapp-modal";
 import { WhatsAppFloatingButton } from "@/components/whatsapp-floating-button";
 import { NewStoreDialog } from "@/components/new-store-dialog";
 import Gallery from "@/components/Gallery";
-
 
 // Mobile Carousel Component
 const MobileCarousel = ({
@@ -517,14 +515,15 @@ export default function GentlemenTimes() {
     },
     {
       name: "Sharjah",
-      address: "SHARJAH CENTRAL - C-21,GROUND FLOOR - 21 St - Samnan - Halwan - Sharjah",
+      address:
+        "SHARJAH CENTRAL - C-21,GROUND FLOOR - 21 St - Samnan - Halwan - Sharjah",
       phone: "+971 58 573 8072",
       whatsapp: "+971 58 573 8072",
       googleMapsUrl: "https://maps.app.goo.gl/JyHtw1d4M5nAAPgc9",
     },
   ];
 
-  const packages = [
+  const sharjahPackages = [
     {
       name: "The Executive Suite",
       prices: [" AED 299", "AED 299(save AED 118!)"],
@@ -576,6 +575,47 @@ export default function GentlemenTimes() {
       popular: false,
     },
   ];
+
+  const dubaiPackages = [
+    {
+      name: "TGT 240 – The Flex Five",
+      prices: "AED 240 (Save more with your custom combo!)",
+      services: [
+        "Refresh your vibe with any 5 services of your choice ","Haircut, beard grooming, hair spa, face scrub, hot oil or head massage, foot massage, to express manicure or pedicure.",
+      ],
+      popular: true,
+    },
+    {
+      name: "TGT 365 – The Signature Glow",
+      prices: "AED 365 (Save AED 100+)",
+      services: [
+        "A full grooming experience including haircut, beard, hair spa, express facial, face scrub & cleanup, hair & beard color", "hot oil head massage, foot & hand massage, classic manicure, and pedicure.",
+        "Walk out looking your absolute best",
+      ],
+      popular: false,
+    },
+    {
+      name: "TGT 440 – The Elite Five",
+      prices: "AED 440 (Save big while customizing your elite care!)",
+      services: [
+        "Choose any 5 premium services", "Haircut, Beard Trim, Skin Fade, Hair Spa, Anti-Dandruff Scalp Treatment, Express Facial, Face Scrub"," Skeyndor Express Facial, Dr. Renaud Facial, Hair Color, Beard Color, Hot Oil Head Massage, Foot Massage, Hand Massage, Premium Manicure, or Pedicure.",
+      ],
+      popular: false,
+    },
+
+    {
+      name: "TGT 550 – The Royal Five",
+      prices: "AED 550 (Save AED 120+)",
+      services: [
+        "Indulge in any 5 luxury services " ,"From Skin Fade and Hair Spa to Premium Facials (Skeyndor / Dr. Renaud), Color, Massage, or Manicure & Pedicure.",
+        "A royal treatment for your complete transformation ",
+      ],
+      popular: false,
+    },
+  ];
+
+  const packages =
+    selectedLocationIndex === 0 ? dubaiPackages : sharjahPackages;
 
   const services = [
     {
@@ -926,7 +966,6 @@ export default function GentlemenTimes() {
       description: "Professional keratin and perming services",
       details: [
         {
-          
           title: "Short Hair",
           desc: "Industry leader Brazilian Blowout protein treatment will smoothen and add definition to your hair",
           time: "60 Mins",
@@ -1358,7 +1397,7 @@ export default function GentlemenTimes() {
             {/* Location Tabs */}
             <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-2">
               <Button
-                className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
+                className={`px-6 py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
                   selectedLocationIndex === 0
                     ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
                     : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
@@ -1367,8 +1406,9 @@ export default function GentlemenTimes() {
               >
                 Dubai Packages
               </Button>
+
               <Button
-                className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
+                className={`px-6 py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
                   selectedLocationIndex === 1
                     ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
                     : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
@@ -1380,7 +1420,7 @@ export default function GentlemenTimes() {
             </div>
           </AnimatedSection>
 
-          {/* Packages Grid/Carousel */}
+          {/* Packages Grid */}
           <AnimatedSection delay={0.2}>
             <motion.div
               key={selectedLocationIndex}
@@ -1389,11 +1429,10 @@ export default function GentlemenTimes() {
               transition={{ duration: 0.5 }}
               className="w-full"
             >
-              {/* Desktop Grid */}
               <div className="hidden md:grid md:grid-cols-3 gap-6 lg:gap-8">
                 {packages.map((pkg, index) => (
                   <motion.div
-                    key={`${selectedLocationIndex}-${pkg.name}-desktop`}
+                    key={`${selectedLocationIndex}-${pkg.name}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -1413,57 +1452,32 @@ export default function GentlemenTimes() {
                         </div>
                       )}
 
-                      <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-gold/20 to-transparent"></div>
-
                       <CardContent className="p-6 lg:p-8 text-center flex-grow flex flex-col relative z-10">
                         <div className="mb-6">
                           <h3 className="text-xl lg:text-2xl font-serif text-gold mb-4 font-semibold">
                             {pkg.name}
                           </h3>
-                          <motion.div
-                            key={`${selectedLocationIndex}-${pkg.prices[selectedLocationIndex]}-desktop`}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.4 }}
-                            className="relative"
-                          >
-                            <p className="text-3xl lg:text-4xl font-bold text-gold mb-2">
-                              {pkg.prices[selectedLocationIndex]}
-                            </p>
-                            <div className="w-16 h-1 bg-gold/50 mx-auto rounded-full"></div>
-                          </motion.div>
+                          <p className="text-2xl lg:text-2xl font-bold text-gold mb-2">
+                            {pkg.prices}
+                          </p>
+                          <div className="w-16 h-1 bg-gold/50 mx-auto rounded-full"></div>
                         </div>
 
                         <ul className="space-y-3 lg:space-y-4 mb-8 flex-grow">
                           {pkg.services.map((service, i) => (
-                            <motion.li
+                            <li
                               key={i}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{
-                                duration: 0.4,
-                                delay: 0.1 + i * 0.1,
-                              }}
                               className="text-foreground/90 flex items-center justify-start text-left"
                             >
                               <div className="w-2 h-2 bg-gold rounded-full mr-3 flex-shrink-0"></div>
                               <span className="text-sm">{service}</span>
-                            </motion.li>
+                            </li>
                           ))}
                         </ul>
 
-                        <motion.div
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className="mt-auto"
-                        >
-                          <Button
-                            className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300"
-                            onClick={handleBookNowClick}
-                          >
-                            Book This Package
-                          </Button>
-                        </motion.div>
+                        <Button className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300">
+                          Book This Package
+                        </Button>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -1601,308 +1615,317 @@ export default function GentlemenTimes() {
 
       {/* Services Section */}
 
-    
-
-     <section
-  id="services"
-  className="py-12 sm:py-16 lg:py-20 px-4 bg-background section-divider"
->
-  <div className="max-w-6xl mx-auto">
-    <AnimatedSection className="text-center mb-12 sm:mb-16">
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gold mb-3 sm:mb-4">
-        Our Services
-      </h2>
-      <p className="text-foreground/90 text-sm sm:text-base lg:text-lg">
-        Professional grooming services tailored for the modern gentleman
-      </p>
-    </AnimatedSection>
-
-    {/* Main service buttons */}
-    <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar-mobile">
-      {services.map((service) => (
-        <motion.button
-          key={service.name}
-          onClick={() => {
-            setSelectedService(service);
-            setSelectedSubService(
-              service.subServices ? service.subServices[0] : null
-            );
-          }}
-          className={`flex-shrink-0 px-4 py-2 rounded-lg font-medium text-base transition-all shadow-sm hover:shadow-md active:scale-95 whitespace-nowrap ${
-            selectedService?.name === service.name
-              ? "bg-gold text-charcoal border-2 border-gold"
-              : "bg-transparent border-2 border-gold text-gold hover:bg-gold/10"
-          }`}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          {service.name}
-        </motion.button>
-      ))}
-    </div>
-
-    {/* Sub-services (if any) */}
-    {selectedService?.subServices && (
-      <div className="flex flex-wrap gap-3 justify-center mt-6">
-        {selectedService.subServices.map((sub: any) => (
-          <motion.button
-            key={sub.name}
-            onClick={() => setSelectedSubService(sub)}
-            className={`px-4 py-2 rounded-lg border font-medium text-base transition ${
-              selectedSubService?.name === sub.name
-                ? "bg-gold text-charcoal border-gold"
-                : "bg-transparent border-gold text-gold hover:bg-gold/10"
-            }`}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            {sub.name}
-          </motion.button>
-        ))}
-      </div>
-    )}
-
-    {/* Show sub-service details */}
-    {selectedSubService && (
-      <motion.div
-        key={selectedSubService.name}
-        className="mt-8 p-6 rounded-lg premium-card max-w-2xl mx-auto"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <section
+        id="services"
+        className="py-12 sm:py-16 lg:py-20 px-4 bg-background section-divider"
       >
-        <h3 className="text-xl font-semibold text-gold mb-4 text-center">
-          {selectedSubService.name}
-        </h3>
-        <div className="space-y-4">
-          {selectedSubService.details.map((item: any, idx: number) => (
-            <div
-              key={idx}
-              className="border border-gold/30 rounded-lg p-4 text-left hover:bg-gold/5 transition"
-            >
-              <h4 className="text-lg font-semibold text-gold">{item.title}</h4>
-              <p className="text-sm text-foreground/80">{item.desc}</p>
-              <div className="flex justify-between mt-2 text-sm">
-                <span className="text-foreground/70">{item.time}</span>
-                <span className="font-semibold text-gold">{item.price}</span>
-              </div>
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gold mb-3 sm:mb-4">
+              Our Services
+            </h2>
+            <p className="text-foreground/90 text-sm sm:text-base lg:text-lg">
+              Professional grooming services tailored for the modern gentleman
+            </p>
+          </AnimatedSection>
+
+          {/* Main service buttons */}
+          <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar-mobile">
+            {services.map((service) => (
+              <motion.button
+                key={service.name}
+                onClick={() => {
+                  setSelectedService(service);
+                  setSelectedSubService(
+                    service.subServices ? service.subServices[0] : null
+                  );
+                }}
+                className={`flex-shrink-0 px-4 py-2 rounded-lg font-medium text-base transition-all shadow-sm hover:shadow-md active:scale-95 whitespace-nowrap ${
+                  selectedService?.name === service.name
+                    ? "bg-gold text-charcoal border-2 border-gold"
+                    : "bg-transparent border-2 border-gold text-gold hover:bg-gold/10"
+                }`}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                {service.name}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Sub-services (if any) */}
+          {selectedService?.subServices && (
+            <div className="flex flex-wrap gap-3 justify-center mt-6">
+              {selectedService.subServices.map((sub: any) => (
+                <motion.button
+                  key={sub.name}
+                  onClick={() => setSelectedSubService(sub)}
+                  className={`px-4 py-2 rounded-lg border font-medium text-base transition ${
+                    selectedSubService?.name === sub.name
+                      ? "bg-gold text-charcoal border-gold"
+                      : "bg-transparent border-gold text-gold hover:bg-gold/10"
+                  }`}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  {sub.name}
+                </motion.button>
+              ))}
             </div>
-          ))}
-        </div>
-      </motion.div>
-    )}
+          )}
 
-    {/* Direct details (like MASSAGES) */}
-    {selectedService?.details && !selectedService.subServices && (
-      <motion.div
-        key={selectedService.name}
-        className="mt-8 p-6 rounded-lg premium-card max-w-2xl mx-auto"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <h3 className="text-xl font-semibold text-gold mb-4 text-center">
-          {selectedService.name}
-        </h3>
-        <div className="space-y-4">
-          {selectedService.details.map((item: any, idx: number) => (
-            <div
-              key={idx}
-              className="border border-gold/30 rounded-lg p-4 text-left hover:bg-gold/5 transition"
-            >
-              <h4 className="text-lg font-semibold text-gold">{item.title}</h4>
-              <p className="text-sm text-foreground/80">{item.desc}</p>
-              <div className="flex justify-between mt-2 text-sm">
-                <span className="text-foreground/70">{item.time}</span>
-                <span className="font-semibold text-gold">{item.price}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-    )}
-
-    {/* Normal service description (for description-only services) */}
-    {selectedService &&
-      !selectedService.subServices &&
-      !selectedService.details && (
-        <motion.div
-          key={selectedService.name}
-          className="mt-8 p-6 rounded-lg premium-card text-center max-w-md mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <selectedService.icon
-            className="text-gold mx-auto mb-3 sm:mb-4"
-            size={50}
-          />
-          <h3 className="text-xl font-semibold text-gold mb-3">
-            {selectedService.name}
-          </h3>
-          <p className="text-foreground/90 text-base">
-            {selectedService.description}
-          </p>
-        </motion.div>
-      )}
-  </div>
-</section>
-
-<style jsx global>{`
-  /* Custom thin scrollbar only on mobile */
-  @media (max-width: 768px) {
-    .custom-scrollbar-mobile::-webkit-scrollbar {
-      height: 3px; /* very thin */
-    }
-    .custom-scrollbar-mobile::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .custom-scrollbar-mobile::-webkit-scrollbar-thumb {
-      background-color: #d4af37; /* gold */
-      border-radius: 2px;
-    }
-
-    /* Firefox */
-    .custom-scrollbar-mobile {
-      scrollbar-width: thin;
-      scrollbar-color: #d4af37 transparent;
-    }
-  }
-
-  /* Hide scrollbar on desktop */
-  @media (min-width: 769px) {
-    .custom-scrollbar-mobile::-webkit-scrollbar {
-      display: none;
-    }
-    .custom-scrollbar-mobile {
-      scrollbar-width: none;
-    }
-  }
-`}</style>
-
-
-      
-   {/* Team Section */}
-<section
-  id="team"
-  className="py-12 sm:py-16 lg:py-20 px-4 bg-card section-divider"
->
-  <div className="max-w-6xl mx-auto">
-    <AnimatedSection className="text-center mb-12 sm:mb-16">
-      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gold mb-3 sm:mb-4">
-        Meet Our Masters
-      </h2>
-      <p className="text-foreground/90 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8">
-        Expert craftsmen dedicated to your grooming excellence
-      </p>
-
-      {/* Location Tabs for Team */}
-      <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-2">
-        <Button
-          className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
-            selectedLocationIndex === 0
-              ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
-              : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
-          }`}
-          onClick={() => handleLocationTabClick(0)}
-        >
-          Dubai Team
-        </Button>
-        <Button
-          className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
-            selectedLocationIndex === 1
-              ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
-              : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
-          }`}
-          onClick={() => handleLocationTabClick(1)}
-        >
-          Sharjah Team
-        </Button>
-      </div>
-    </AnimatedSection>
-
-    <AnimatedSection delay={0.2}>
-      <motion.div
-        key={selectedLocationIndex}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full"
-      >
-        {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {teamByLocation[selectedLocationIndex].map((member, index) => (
+          {/* Show sub-service details */}
+          {selectedSubService && (
             <motion.div
-              key={`${selectedLocationIndex}-${member.name}-desktop`}
-              initial={{ opacity: 0, y: 30 }}
+              key={selectedSubService.name}
+              className="mt-8 p-6 rounded-lg premium-card max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="h-full"
             >
-              <div className="text-center p-4 rounded-lg premium-card h-full">
-                <div className="w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-4 rounded-full overflow-hidden border-2 border-gold/50 shadow-lg">
-                  <img
-                    src={member.image} // different image per member
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-lg lg:text-xl font-semibold text-gold mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-foreground/90 mb-1 text-sm lg:text-base">
-                  {member.title}
-                </p>
-                <p className="text-xs lg:text-sm text-foreground/70 mb-2">
-                  {member.specialty}
-                </p>
-                <Badge className="bg-gold/20 text-gold text-xs">
-                  {member.experience}
-                </Badge>
+              <h3 className="text-xl font-semibold text-gold mb-4 text-center">
+                {selectedSubService.name}
+              </h3>
+              <div className="space-y-4">
+                {selectedSubService.details.map((item: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className="border border-gold/30 rounded-lg p-4 text-left hover:bg-gold/5 transition"
+                  >
+                    <h4 className="text-lg font-semibold text-gold">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-foreground/80">{item.desc}</p>
+                    <div className="flex justify-between mt-2 text-sm">
+                      <span className="text-foreground/70">{item.time}</span>
+                      <span className="font-semibold text-gold">
+                        {item.price}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </motion.div>
-          ))}
-        </div>
+          )}
 
-        {/* Mobile Carousel */}
-        <div className="md:hidden">
-          <MobileCarousel autoPlayInterval={3500} showDots={true} className="px-2">
-            {teamByLocation[selectedLocationIndex].map((member, index) => (
-              <motion.div
-                key={`${selectedLocationIndex}-${member.name}-mobile`}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="h-full px-2"
-              >
-                <div className="text-center p-3 sm:p-4 rounded-lg premium-card h-full min-h-[280px] flex flex-col justify-center">
-                  <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden border-2 border-gold/50 shadow-lg">
-                    <img
-                      src={member.image} // different image per member
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
+          {/* Direct details (like MASSAGES) */}
+          {selectedService?.details && !selectedService.subServices && (
+            <motion.div
+              key={selectedService.name}
+              className="mt-8 p-6 rounded-lg premium-card max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <h3 className="text-xl font-semibold text-gold mb-4 text-center">
+                {selectedService.name}
+              </h3>
+              <div className="space-y-4">
+                {selectedService.details.map((item: any, idx: number) => (
+                  <div
+                    key={idx}
+                    className="border border-gold/30 rounded-lg p-4 text-left hover:bg-gold/5 transition"
+                  >
+                    <h4 className="text-lg font-semibold text-gold">
+                      {item.title}
+                    </h4>
+                    <p className="text-sm text-foreground/80">{item.desc}</p>
+                    <div className="flex justify-between mt-2 text-sm">
+                      <span className="text-foreground/70">{item.time}</span>
+                      <span className="font-semibold text-gold">
+                        {item.price}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-gold mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-foreground/90 mb-1 text-xs sm:text-sm">
-                    {member.title}
-                  </p>
-                  <p className="text-xs text-foreground/70 mb-2">
-                    {member.specialty}
-                  </p>
-                  <Badge className="bg-gold/20 text-gold text-xs mx-auto">
-                    {member.experience}
-                  </Badge>
-                </div>
-              </motion.div>
-            ))}
-          </MobileCarousel>
-        </div>
-      </motion.div>
-    </AnimatedSection>
-  </div>
-</section>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
+          {/* Normal service description (for description-only services) */}
+          {selectedService &&
+            !selectedService.subServices &&
+            !selectedService.details && (
+              <motion.div
+                key={selectedService.name}
+                className="mt-8 p-6 rounded-lg premium-card text-center max-w-md mx-auto"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <selectedService.icon
+                  className="text-gold mx-auto mb-3 sm:mb-4"
+                  size={50}
+                />
+                <h3 className="text-xl font-semibold text-gold mb-3">
+                  {selectedService.name}
+                </h3>
+                <p className="text-foreground/90 text-base">
+                  {selectedService.description}
+                </p>
+              </motion.div>
+            )}
+        </div>
+      </section>
+
+      <style jsx global>{`
+        /* Custom thin scrollbar only on mobile */
+        @media (max-width: 768px) {
+          .custom-scrollbar-mobile::-webkit-scrollbar {
+            height: 3px; /* very thin */
+          }
+          .custom-scrollbar-mobile::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .custom-scrollbar-mobile::-webkit-scrollbar-thumb {
+            background-color: #d4af37; /* gold */
+            border-radius: 2px;
+          }
+
+          /* Firefox */
+          .custom-scrollbar-mobile {
+            scrollbar-width: thin;
+            scrollbar-color: #d4af37 transparent;
+          }
+        }
+
+        /* Hide scrollbar on desktop */
+        @media (min-width: 769px) {
+          .custom-scrollbar-mobile::-webkit-scrollbar {
+            display: none;
+          }
+          .custom-scrollbar-mobile {
+            scrollbar-width: none;
+          }
+        }
+      `}</style>
+
+      {/* Team Section */}
+      <section
+        id="team"
+        className="py-12 sm:py-16 lg:py-20 px-4 bg-card section-divider"
+      >
+        <div className="max-w-6xl mx-auto">
+          <AnimatedSection className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gold mb-3 sm:mb-4">
+              Meet Our Masters
+            </h2>
+            <p className="text-foreground/90 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8">
+              Expert craftsmen dedicated to your grooming excellence
+            </p>
+
+            {/* Location Tabs for Team */}
+            <div className="flex justify-center items-center space-x-2 sm:space-x-4 mb-2">
+              <Button
+                className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
+                  selectedLocationIndex === 0
+                    ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
+                    : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
+                }`}
+                onClick={() => handleLocationTabClick(0)}
+              >
+                Dubai Team
+              </Button>
+              <Button
+                className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full transition-all duration-300 font-semibold text-sm sm:text-base ${
+                  selectedLocationIndex === 1
+                    ? "bg-gold text-charcoal hover:bg-gold/90 shadow-lg hover-glow"
+                    : "bg-secondary/50 text-foreground/70 hover:bg-secondary/70 hover:text-foreground"
+                }`}
+                onClick={() => handleLocationTabClick(1)}
+              >
+                Sharjah Team
+              </Button>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <motion.div
+              key={selectedLocationIndex}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="w-full"
+            >
+              {/* Desktop Grid */}
+              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                {teamByLocation[selectedLocationIndex].map((member, index) => (
+                  <motion.div
+                    key={`${selectedLocationIndex}-${member.name}-desktop`}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="h-full"
+                  >
+                    <div className="text-center p-4 rounded-lg premium-card h-full">
+                      <div className="w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-4 rounded-full overflow-hidden border-2 border-gold/50 shadow-lg">
+                        <img
+                          src={member.image} // different image per member
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h3 className="text-lg lg:text-xl font-semibold text-gold mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-foreground/90 mb-1 text-sm lg:text-base">
+                        {member.title}
+                      </p>
+                      <p className="text-xs lg:text-sm text-foreground/70 mb-2">
+                        {member.specialty}
+                      </p>
+                      <Badge className="bg-gold/20 text-gold text-xs">
+                        {member.experience}
+                      </Badge>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile Carousel */}
+              <div className="md:hidden">
+                <MobileCarousel
+                  autoPlayInterval={3500}
+                  showDots={true}
+                  className="px-2"
+                >
+                  {teamByLocation[selectedLocationIndex].map(
+                    (member, index) => (
+                      <motion.div
+                        key={`${selectedLocationIndex}-${member.name}-mobile`}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        className="h-full px-2"
+                      >
+                        <div className="text-center p-3 sm:p-4 rounded-lg premium-card h-full min-h-[280px] flex flex-col justify-center">
+                          <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden border-2 border-gold/50 shadow-lg">
+                            <img
+                              src={member.image} // different image per member
+                              alt={member.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <h3 className="text-base sm:text-lg font-semibold text-gold mb-1">
+                            {member.name}
+                          </h3>
+                          <p className="text-foreground/90 mb-1 text-xs sm:text-sm">
+                            {member.title}
+                          </p>
+                          <p className="text-xs text-foreground/70 mb-2">
+                            {member.specialty}
+                          </p>
+                          <Badge className="bg-gold/20 text-gold text-xs mx-auto">
+                            {member.experience}
+                          </Badge>
+                        </div>
+                      </motion.div>
+                    )
+                  )}
+                </MobileCarousel>
+              </div>
+            </motion.div>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* Locations Section */}
       <section
@@ -1979,7 +2002,7 @@ export default function GentlemenTimes() {
           </div>
         </div>
       </section>
-      
+
       <Gallery />
 
       {/* Testimonials Section */}
@@ -2235,7 +2258,7 @@ export default function GentlemenTimes() {
       </AnimatedSection>
 
       {/* Footer */}
-      
+
       <footer
         id="contact"
         className="py-12 sm:py-16 px-4 bg-card border-t border-gold/30"
@@ -2295,68 +2318,79 @@ export default function GentlemenTimes() {
               </ul>
             </div>
             <div>
-              
               <div>
-  <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
-    Contact
-  </h4>
-  <ul className="space-y-2 text-foreground/90 text-sm sm:text-base">
-    {/* Dubai Contact */}
-    <li className="flex items-center">
-      <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
-      <a
-        href={`https://wa.me/${locations[0].phone.replace(/\D/g, "")}?text=${encodeURIComponent(
-          `Hi, I’m interested in your Dubai store services. I found you on the ${window.location.pathname} page.`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="break-all hover:text-gold transition"
-      >
-        {locations[0].phone} (Dubai)
-      </a>
-    </li>
-    <li className="flex items-start">
-      <MapPin className="mr-2 text-gold flex-shrink-0 mt-0.5" size={14} />
-      <span className="text-xs sm:text-sm">{locations[0].address}</span>
-    </li>
+                <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
+                  Contact
+                </h4>
+                <ul className="space-y-2 text-foreground/90 text-sm sm:text-base">
+                  {/* Dubai Contact */}
+                  <li className="flex items-center">
+                    <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
+                    <a
+                      href={`https://wa.me/${locations[0].phone.replace(
+                        /\D/g,
+                        ""
+                      )}?text=${encodeURIComponent(
+                        `Hi, I’m interested in your Dubai store services. I found you on the ${window.location.pathname} page.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-all hover:text-gold transition"
+                    >
+                      {locations[0].phone} (Dubai)
+                    </a>
+                  </li>
+                  <li className="flex items-start">
+                    <MapPin
+                      className="mr-2 text-gold flex-shrink-0 mt-0.5"
+                      size={14}
+                    />
+                    <span className="text-xs sm:text-sm">
+                      {locations[0].address}
+                    </span>
+                  </li>
 
-    {/* Sharjah Contact */}
-    <li className="flex items-center mt-3 sm:mt-4">
-      <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
-      <a
-        href={`https://wa.me/${locations[1].phone.replace(/\D/g, "")}?text=${encodeURIComponent(
-          `Hi, I’m interested in your Sharjah store services. I found you on the ${window.location.pathname} page.`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="break-all hover:text-gold transition"
-      >
-        {locations[1].phone} (Sharjah)
-      </a>
-    </li>
-    <li className="flex items-start">
-      <MapPin className="mr-2 text-gold flex-shrink-0 mt-0.5" size={14} />
-      <span className="text-xs sm:text-sm">{locations[1].address}</span>
-    </li>
+                  {/* Sharjah Contact */}
+                  <li className="flex items-center mt-3 sm:mt-4">
+                    <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
+                    <a
+                      href={`https://wa.me/${locations[1].phone.replace(
+                        /\D/g,
+                        ""
+                      )}?text=${encodeURIComponent(
+                        `Hi, I’m interested in your Sharjah store services. I found you on the ${window.location.pathname} page.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-all hover:text-gold transition"
+                    >
+                      {locations[1].phone} (Sharjah)
+                    </a>
+                  </li>
+                  <li className="flex items-start">
+                    <MapPin
+                      className="mr-2 text-gold flex-shrink-0 mt-0.5"
+                      size={14}
+                    />
+                    <span className="text-xs sm:text-sm">
+                      {locations[1].address}
+                    </span>
+                  </li>
 
-    {/* Email */}
-    <li className="flex items-center mt-3 sm:mt-4">
-      <Mail className="mr-2 text-gold flex-shrink-0" size={14} />
-      <a
-        href="mailto:info@thegentlementimes.ae"
-        className="break-all hover:text-gold transition"
-      >
-        info@thegentlementimes.ae
-      </a>
-    </li>
-  </ul>
-</div>
-
+                  {/* Email */}
+                  <li className="flex items-center mt-3 sm:mt-4">
+                    <Mail className="mr-2 text-gold flex-shrink-0" size={14} />
+                    <a
+                      href="mailto:info@thegentlementimes.ae"
+                      className="break-all hover:text-gold transition"
+                    >
+                      info@thegentlementimes.ae
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div>
-
-          
-
               <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
                 Follow Us
               </h4>
@@ -2368,7 +2402,7 @@ export default function GentlemenTimes() {
                   <Instagram size={20} />
                 </a>
 
-                 <a
+                <a
                   href="https://www.facebook.com/profile.php?id=100088159838955"
                   className="text-foreground/90 hover:text-gold transition-colors"
                 >
@@ -2381,14 +2415,8 @@ export default function GentlemenTimes() {
                 >
                   <FaTiktok size={20} />
                 </a>
-
-    
               </div>
 
-              
-               
-
-    
               <div>
                 {/* <h5 className="text-gold mb-2 text-sm sm:text-base">
                   Newsletter
@@ -2414,9 +2442,6 @@ export default function GentlemenTimes() {
         </div>
       </footer>
 
-      
-
-      
       <WhatsAppFloatingButton />
     </div>
   );
