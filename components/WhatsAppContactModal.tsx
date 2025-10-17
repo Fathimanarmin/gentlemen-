@@ -129,7 +129,7 @@ export function WhatsAppContactModal({
   className="w-full bg-green-500 hover:bg-green-600 text-white"
   onClick={() =>
     window.open(
-      `https://wa.me/971567800180?text=${encodeURIComponent(
+      `https://wa.me/566800180?text=${encodeURIComponent(
         `Hi, I’m interested in your Dubai store services. I found you on the ${window.location.pathname} page.`
       )}`,
       "_blank"

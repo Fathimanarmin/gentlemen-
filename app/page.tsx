@@ -40,6 +40,7 @@ import { WhatsAppModal } from "@/components/whatsapp-modal";
 import { WhatsAppFloatingButton } from "@/components/whatsapp-floating-button";
 import { NewStoreDialog } from "@/components/new-store-dialog";
 import Gallery from "@/components/Gallery";
+import { BookingPopup } from "@/components/BookingPopup";
 
 // Mobile Carousel Component
 const MobileCarousel = ({
@@ -275,8 +276,13 @@ const Header = ({ onBookNowClick }: { onBookNowClick: () => void }) => {
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [0.95, 0.98]);
   const headerBlur = useTransform(scrollY, [0, 100], [0, 20]);
+   const [activeSection, setActiveLink] = useState("#home");
 
-  useEffect(() => {
+
+
+
+ 
+     useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -292,31 +298,101 @@ const Header = ({ onBookNowClick }: { onBookNowClick: () => void }) => {
     { name: "Locations", href: "#locations" },
     { name: "Gallery", href: "#gallery" },
     { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    // { name: "Contact", href: "#" },
   ];
 
-  const handleNavClick = (href: string) => {
+ 
+
+    const handleNavClick = (href: string) => {
+    setActiveLink(href);
     setIsMobileMenuOpen(false);
+
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Ultra-smooth scroll
+      window.scrollTo({
+        top: element.getBoundingClientRect().top + window.scrollY - 70,
+        behavior: "smooth",
+      });
     }
   };
 
-  return (
+  // return (
+  //   <motion.header
+  //     className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+  //       isScrolled ? "py-2" : "py-3 sm:py-4"
+  //     }`}
+  //     style={{
+  //       backgroundColor: `hsl(var(--background) / ${headerOpacity.get()})`,
+  //       backdropFilter: `blur(${headerBlur.get()}px)`,
+  //     }}
+  //     initial={{ y: -100 }}
+  //     animate={{ y: 0 }}
+  //     transition={{ duration: 0.8, ease: "easeOut" }}
+  //   >
+  //     <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+  //       <motion.div
+  //         className="flex items-center space-x-2"
+  //         whileHover={{ scale: 1.05 }}
+  //         transition={{ type: "spring", stiffness: 400, damping: 10 }}
+  //       >
+  //         <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center">
+  //           <img
+  //             src="/images/TGTlogo.png"
+  //             alt="TGT Logo"
+  //             className="w-20 h-20 sm:w-24 sm:h-24 object-contain"
+  //           />
+  //         </div>
+  //         <div>
+  //           <h1 className="text-lg sm:text-xl font-serif text-gold font-bold">
+  //             TGT
+  //           </h1>
+  //           <p className="text-xs text-foreground/70 -mt-1 hidden sm:block">
+  //             The Gentlemen Times
+  //           </p>
+  //         </div>
+  //       </motion.div>
+
+  //       {/* Desktop Navigation */}
+  //       <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+  //         {navItems.map((item, index) => (
+  //           <motion.a
+  //             key={item.name}
+  //             href={item.href}
+  //             className="text-foreground/90 hover:text-gold transition-colors duration-300 relative group text-sm xl:text-base"
+  //             initial={{ opacity: 0, y: -20 }}
+  //             animate={{ opacity: 1, y: 0 }}
+  //             transition={{ duration: 0.5, delay: index * 0.1 }}
+  //             whileHover={{ y: -2 }}
+  //             onClick={(e) => {
+  //               e.preventDefault();
+  //               handleNavClick(item.href);
+  //             }}
+  //           >
+  //             {item.name}
+  //             <motion.div
+  //               className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"
+  //               whileHover={{ width: "100%" }}
+  //             />
+  //           </motion.a>
+  //         ))}
+  //       </nav>
+
+   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? "py-2" : "py-3 sm:py-4"
       }`}
       style={{
-        backgroundColor: `hsl(var(--background) / ${headerOpacity.get()})`,
-        backdropFilter: `blur(${headerBlur.get()}px)`,
+        backgroundColor: `hsl(var(--background) / ${isScrolled ? 0.8 : 1})`,
+        backdropFilter: `blur(${isScrolled ? 12 : 0}px)`,
       }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        {/* Logo */}
         <motion.div
           className="flex items-center space-x-2"
           whileHover={{ scale: 1.05 }}
@@ -345,7 +421,11 @@ const Header = ({ onBookNowClick }: { onBookNowClick: () => void }) => {
             <motion.a
               key={item.name}
               href={item.href}
-              className="text-foreground/90 hover:text-gold transition-colors duration-300 relative group text-sm xl:text-base"
+              className={`relative group text-sm xl:text-base transition-colors duration-300 ${
+                activeSection === item.href
+                  ? "text-gold font-semibold"
+                  : "text-foreground/90 hover:text-gold"
+              }`}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -356,9 +436,12 @@ const Header = ({ onBookNowClick }: { onBookNowClick: () => void }) => {
               }}
             >
               {item.name}
-              <motion.div
-                className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"
-                whileHover={{ width: "100%" }}
+              <span
+                className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
+                  activeSection === item.href
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                }`}
               />
             </motion.a>
           ))}
@@ -500,8 +583,13 @@ const ParallaxText = ({
 export default function GentlemenTimes() {
   const [loading, setLoading] = useState(true);
   const [showNewStoreDialog, setShowNewStoreDialog] = useState(false);
-  const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
+  const [IsBookingPopupOpen, setIsBookingPopupOpen] = useState(false);
   const [selectedLocationIndex, setSelectedLocationIndex] = useState(0);
+
+  const handleBookPackageClick = () => {
+    setIsBookingPopupOpen(true);
+  };
+
   // const [selectedService, setSelectedService] = useState<any>(null);
   // const [selectedSubService, setSelectedSubService] = useState<any>(null);
 
@@ -581,7 +669,8 @@ export default function GentlemenTimes() {
       name: "TGT 240 – The Flex Five",
       prices: "AED 240 (Save more with your custom combo!)",
       services: [
-        "Refresh your vibe with any 5 services of your choice ","Haircut, beard grooming, hair spa, face scrub, hot oil or head massage, foot massage, to express manicure or pedicure.",
+        "Refresh your vibe with any 5 services of your choice ",
+        "Haircut, beard grooming, hair spa, face scrub, hot oil or head massage, foot massage, to express manicure or pedicure.",
       ],
       popular: true,
     },
@@ -589,7 +678,8 @@ export default function GentlemenTimes() {
       name: "TGT 365 – The Signature Glow",
       prices: "AED 365 (Save AED 100+)",
       services: [
-        "A full grooming experience including haircut, beard, hair spa, express facial, face scrub & cleanup, hair & beard color", "hot oil head massage, foot & hand massage, classic manicure, and pedicure.",
+        "A full grooming experience including haircut, beard, hair spa, express facial, face scrub & cleanup, hair & beard color",
+        "hot oil head massage, foot & hand massage, classic manicure, and pedicure.",
         "Walk out looking your absolute best",
       ],
       popular: false,
@@ -598,7 +688,9 @@ export default function GentlemenTimes() {
       name: "TGT 440 – The Elite Five",
       prices: "AED 440 (Save big while customizing your elite care!)",
       services: [
-        "Choose any 5 premium services", "Haircut, Beard Trim, Skin Fade, Hair Spa, Anti-Dandruff Scalp Treatment, Express Facial, Face Scrub"," Skeyndor Express Facial, Dr. Renaud Facial, Hair Color, Beard Color, Hot Oil Head Massage, Foot Massage, Hand Massage, Premium Manicure, or Pedicure.",
+        "Choose any 5 premium services",
+        "Haircut, Beard Trim, Skin Fade, Hair Spa, Anti-Dandruff Scalp Treatment, Express Facial, Face Scrub",
+        " Skeyndor Express Facial, Dr. Renaud Facial, Hair Color, Beard Color, Hot Oil Head Massage, Foot Massage, Hand Massage, Premium Manicure, or Pedicure.",
       ],
       popular: false,
     },
@@ -607,7 +699,8 @@ export default function GentlemenTimes() {
       name: "TGT 550 – The Royal Five",
       prices: "AED 550 (Save AED 120+)",
       services: [
-        "Indulge in any 5 luxury services " ,"From Skin Fade and Hair Spa to Premium Facials (Skeyndor / Dr. Renaud), Color, Massage, or Manicure & Pedicure.",
+        "Indulge in any 5 luxury services ",
+        "From Skin Fade and Hair Spa to Premium Facials (Skeyndor / Dr. Renaud), Color, Massage, or Manicure & Pedicure.",
         "A royal treatment for your complete transformation ",
       ],
       popular: false,
@@ -1145,7 +1238,7 @@ export default function GentlemenTimes() {
   }, [loading]);
 
   const handleBookNowClick = () => {
-    setIsWhatsAppModalOpen(true);
+    setShowNewStoreDialog(true);
   };
 
   const handleLocationTabClick = (index: number) => {
@@ -1161,9 +1254,9 @@ export default function GentlemenTimes() {
       <ScrollProgress />
       <FloatingElements />
       <Header onBookNowClick={handleBookNowClick} />
-      <WhatsAppModal
-        isOpen={isWhatsAppModalOpen}
-        onClose={() => setIsWhatsAppModalOpen(false)}
+      <BookingPopup
+        isOpen={IsBookingPopupOpen}
+        onClose={() => setIsBookingPopupOpen(false)}
       />
       <NewStoreDialog
         isOpen={showNewStoreDialog}
@@ -1210,7 +1303,7 @@ export default function GentlemenTimes() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1 }}
               >
-                {"THE GENTLEMEN TIMES"}
+                {"TGT BARBERS"}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
                   animate={{ x: ["-100%", "100%"] }}
@@ -1253,7 +1346,7 @@ export default function GentlemenTimes() {
           >
             <Button
               className="bg-gold hover:bg-gold/90 text-charcoal px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold hover-glow relative overflow-hidden group"
-              onClick={handleBookNowClick}
+              onClick={handleBookPackageClick}
             >
               <motion.span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -1475,7 +1568,31 @@ export default function GentlemenTimes() {
                           ))}
                         </ul>
 
-                        <Button className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300">
+                        {/* <Button
+  className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300"
+  onClick={handleBookPackageClick}
+>
+  Book This Package
+</Button> */}
+
+                        <Button
+                          className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300"
+                          onClick={() => {
+                            if (selectedLocationIndex === 0) {
+                              // Dubai package
+                              window.open(
+                                "https://bookings.gettimely.com/thegentlementimes/bb/book",
+                                "_blank"
+                              );
+                            } else {
+                              // Sharjah package
+                              window.open(
+                                "https://store.zylu.co/the-gentlemen-times-barbers-llc",
+                                "_blank"
+                              );
+                            }
+                          }}
+                        >
                           Book This Package
                         </Button>
                       </CardContent>
@@ -1483,6 +1600,8 @@ export default function GentlemenTimes() {
                   </motion.div>
                 ))}
               </div>
+
+              
 
               {/* Mobile Carousel */}
               <div className="md:hidden">
@@ -1977,9 +2096,9 @@ export default function GentlemenTimes() {
               >
                 <div className="mb-4 sm:mb-6 premium-card rounded-lg p-4 overflow-hidden">
                   <img
-                    src="/placeholder.svg?height=300&width=400"
+                    src="/images/sharja.png"
                     alt="Sharjah Location"
-                    className="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg"
+                    className="w-full h-48 sm:h-64 rounded-lg shadow-lg"
                   />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-serif text-gold mb-3 sm:mb-4">
@@ -2259,188 +2378,124 @@ export default function GentlemenTimes() {
 
       {/* Footer */}
 
-      <footer
-        id="contact"
-        className="py-12 sm:py-16 px-4 bg-card border-t border-gold/30"
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
-            <div className="sm:col-span-2 lg:col-span-1">
-              <h3 className="text-xl sm:text-2xl font-serif text-gold mb-3 sm:mb-4">
-                THE GENTLEMEN TIMES
-              </h3>
-              <p className="text-foreground/90 mb-3 sm:mb-4 text-sm sm:text-base">
-                Luxury grooming experience for the modern gentleman.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
-                Quick Links
-              </h4>
-              <ul className="space-y-2 text-foreground/90 text-sm sm:text-base">
-                <li>
-                  <a
-                    href="#services"
-                    className="hover:text-gold transition-colors"
-                  >
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#packages"
-                    className="hover:text-gold transition-colors"
-                  >
-                    Packages
-                  </a>
-                </li>
-                <li>
-                  <a href="#team" className="hover:text-gold transition-colors">
-                    Our Team
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#locations"
-                    className="hover:text-gold transition-colors"
-                  >
-                    Locations
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#testimonials"
-                    className="hover:text-gold transition-colors"
-                  >
-                    Testimonials
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <div>
-                <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
-                  Contact
-                </h4>
-                <ul className="space-y-2 text-foreground/90 text-sm sm:text-base">
-                  {/* Dubai Contact */}
-                  <li className="flex items-center">
-                    <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
-                    <a
-                      href={`https://wa.me/${locations[0].phone.replace(
-                        /\D/g,
-                        ""
-                      )}?text=${encodeURIComponent(
-                        `Hi, I’m interested in your Dubai store services. I found you on the ${window.location.pathname} page.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="break-all hover:text-gold transition"
-                    >
-                      {locations[0].phone} (Dubai)
-                    </a>
-                  </li>
-                  <li className="flex items-start">
-                    <MapPin
-                      className="mr-2 text-gold flex-shrink-0 mt-0.5"
-                      size={14}
-                    />
-                    <span className="text-xs sm:text-sm">
-                      {locations[0].address}
-                    </span>
-                  </li>
+      <footer className="py-12 sm:py-16 px-4 bg-card border-t border-gold/30">
+  <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    {/* About + Follow Us */}
+    <div className="flex flex-col justify-start">
+      <h3 className="text-2xl sm:text-3xl font-serif text-gold mb-3 sm:mb-4 text-center md:text-left">
+        THE GENTLEMEN TIMES
+      </h3>
+      <p className="text-foreground/90 text-sm sm:text-base leading-relaxed mb-4 text-center md:text-left">
+        Luxury grooming experience for the modern gentleman. Expert care, premium products, and a refined ambience await you.
+      </p>
 
-                  {/* Sharjah Contact */}
-                  <li className="flex items-center mt-3 sm:mt-4">
-                    <Phone className="mr-2 text-gold flex-shrink-0" size={14} />
-                    <a
-                      href={`https://wa.me/${locations[1].phone.replace(
-                        /\D/g,
-                        ""
-                      )}?text=${encodeURIComponent(
-                        `Hi, I’m interested in your Sharjah store services. I found you on the ${window.location.pathname} page.`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="break-all hover:text-gold transition"
-                    >
-                      {locations[1].phone} (Sharjah)
-                    </a>
-                  </li>
-                  <li className="flex items-start">
-                    <MapPin
-                      className="mr-2 text-gold flex-shrink-0 mt-0.5"
-                      size={14}
-                    />
-                    <span className="text-xs sm:text-sm">
-                      {locations[1].address}
-                    </span>
-                  </li>
+      <div className="flex justify-center md:justify-start space-x-4 mt-2">
+        <a
+          href="https://www.instagram.com/tgt_barbers?igsh=MTBsdjF2Nm81cTRpaw=="
+          className="text-foreground/90 hover:text-gold transition-colors"
+        >
+          <Instagram size={24} />
+        </a>
+        <a
+          href="https://www.facebook.com/profile.php?id=100088159838955"
+          className="text-foreground/90 hover:text-gold transition-colors"
+        >
+          <Facebook size={24} />
+        </a>
+        <a
+          href="https://www.tiktok.com/@tgtbarbers_shj?_t=ZS-909wXcHan3Q&_r=1"
+          className="text-foreground/90 hover:text-gold transition-colors"
+        >
+          <FaTiktok size={24} />
+        </a>
+      </div>
+    </div>
 
-                  {/* Email */}
-                  <li className="flex items-center mt-3 sm:mt-4">
-                    <Mail className="mr-2 text-gold flex-shrink-0" size={14} />
-                    <a
-                      href="mailto:info@thegentlementimes.ae"
-                      className="break-all hover:text-gold transition"
-                    >
-                      info@thegentlementimes.ae
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-base sm:text-lg font-semibold text-gold mb-3 sm:mb-4">
-                Follow Us
-              </h4>
-              <div className="flex space-x-4 mb-4 sm:mb-6">
-                <a
-                  href="https://www.instagram.com/tgt_barbers?igsh=MTBsdjF2Nm81cTRpaw=="
-                  className="text-foreground/90 hover:text-gold transition-colors"
-                >
-                  <Instagram size={20} />
-                </a>
+    {/* Quick Links */}
+    <div className="flex flex-col justify-start">
+      <h4 className="text-lg sm:text-xl font-semibold text-gold mb-4 text-center md:text-left">
+        Quick Links
+      </h4>
+      <ul className="space-y-2 text-foreground/90 text-sm sm:text-base text-center md:text-left">
+        {["Services", "Packages", "Our Team", "Locations", "Testimonials"].map(
+          (item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase().replace(/\s+/g, "")}`}
+                className="hover:text-gold transition-colors"
+              >
+                {item}
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+    </div>
 
-                <a
-                  href="https://www.facebook.com/profile.php?id=100088159838955"
-                  className="text-foreground/90 hover:text-gold transition-colors"
-                >
-                  <Facebook size={20} />
-                </a>
+    {/* Contact: Sharjah */}
 
-                <a
-                  href="https://www.tiktok.com/@tgtbarbers_shj?_t=ZS-909wXcHan3Q&_r=1"
-                  className="text-foreground/90 hover:text-gold transition-colors"
-                >
-                  <FaTiktok size={20} />
-                </a>
-              </div>
+            
+  
+    <div className="flex flex-col justify-start items-center md:items-start bg-background/10 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">    
+      <h5 className="text-gold font-semibold mb-2 text-center md:text-left">
+        Sharjah Store
+      </h5>
+      <ul className="space-y-2 text-foreground/90 text-sm sm:text-base text-center md:text-left">
+        <li className="flex items-center gap-2 justify-center md:justify-start">
+          <Phone className="text-gold flex-shrink-0" size={16} />
+          <a
+            href={`https://wa.me/${locations[1].phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+              `Hi, I’m interested in your Sharjah store services. I found you on the ${window.location.pathname} page.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gold transition-colors"
+          >
+            {locations[1].phone}
+          </a>
+        </li>
+        <li className="flex items-start gap-2 justify-center md:justify-start">
+          <MapPin className="text-gold flex-shrink-0 mt-0.5" size={16} />
+          <span className="text-xs sm:text-sm">{locations[1].address}</span>
+        </li>
+      </ul>
+    </div>
 
-              <div>
-                {/* <h5 className="text-gold mb-2 text-sm sm:text-base">
-                  Newsletter
-                </h5> */}
-                {/* <div className="flex flex-col sm:flex-row gap-2">
-                  <Input
-                    placeholder="Your email"
-                    className="bg-background border-background/50 text-foreground text-sm flex-1"
-                  />
-                  <Button className="bg-gold hover:bg-gold/90 text-charcoal text-sm px-4 py-2">
-                    Subscribe
-                  </Button>
-                </div> */}
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gold/30 pt-6 sm:pt-8 text-center text-foreground/70 text-xs sm:text-sm">
-            <p>
-              &copy; {new Date().getFullYear()} The Gentlemen Times. All rights
-              reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+    {/* Contact: Dubai */}
+    <div className="flex flex-col justify-start items-center md:items-start bg-background/10 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+      <h5 className="text-gold font-semibold mb-2 text-center md:text-left">
+        Dubai Store
+      </h5>
+      <ul className="space-y-2 text-foreground/90 text-sm sm:text-base text-center md:text-left">
+        <li className="flex items-center gap-2 justify-center md:justify-start">
+          <Phone className="text-gold flex-shrink-0" size={16} />
+          <a
+            href={`https://wa.me/${locations[0].phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+              `Hi, I’m interested in your Dubai store services. I found you on the ${window.location.pathname} page.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-gold transition-colors"
+          >
+            {locations[0].phone}
+          </a>
+        </li>
+        <li className="flex items-start gap-2 justify-center md:justify-start">
+          <MapPin className="text-gold flex-shrink-0 mt-0.5" size={16} />
+          <span className="text-xs sm:text-sm">{locations[0].address}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+
+  <div className="border-t border-gold/30 pt-6 sm:pt-8 text-center text-foreground/70 text-xs sm:text-sm mt-8">
+    <p>&copy; {new Date().getFullYear()} The Gentlemen Times. All rights reserved.</p>
+  </div>
+</footer>
+
 
       <WhatsAppFloatingButton />
     </div>
