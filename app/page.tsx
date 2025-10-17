@@ -278,6 +278,7 @@ const Header = ({ onBookNowClick }: { onBookNowClick: () => void }) => {
   const headerBlur = useTransform(scrollY, [0, 100], [0, 20]);
    const [activeSection, setActiveLink] = useState("#home");
 
+    
 
 
 
@@ -1101,61 +1102,53 @@ export default function GentlemenTimes() {
         image: "/images/Barber -Irshad.JPG",
         name: "Irshad",
         title: "Master Barber",
-        specialty: "Classic Cuts & Beard Styling",
-        experience: "8 Years",
+        
       },
       {
         image: "/images/Barber -Shaneeb.JPG",
         name: "Shaneeb",
-        title: "Senior Stylist",
-        specialty: "Modern Cuts & Color",
-        experience: "6 Years",
+        title: "Master Barber",
+       
       },
       {
         image: "/images/Barber-Mathew.JPG",
         name: "Mathew",
-        title: "Grooming Specialist",
-        specialty: "Facials & Treatments",
-        experience: "5 Years",
+        title: "Master Barber",
+        
       },
       {
         image: "/images/Barber-Salman.JPG",
         name: "Salman",
-        title: "Hair Artist",
-        specialty: "Creative Styling",
-        experience: "7 Years",
+        title: "Master Barber",
+       
       },
 
       {
         image: "/images/Barber-Soufiyan.JPG",
         name: "Soufiyan",
-        title: "Hair Artist",
-        specialty: "Creative Styling",
-        experience: "7 Years",
+        title: "Master Barber",
+        
       },
 
       {
         image: "/images/Service-Kim.JPG",
         name: "Kim",
-        title: "Hair Artist",
-        specialty: "Creative Styling",
-        experience: "7 Years",
+        title: "Master Barber",
+        
       },
 
       {
         image: "/images/Service-Muniru.JPG",
         name: "Muniru",
-        title: "Hair Artist",
-        specialty: "Creative Styling",
-        experience: "7 Years",
+        title: "Master Barber",
+        
       },
 
       {
         image: "/images/Service-Saritha.JPG",
         name: "Saritha",
-        title: "Hair Artist",
-        specialty: "Creative Styling",
-        experience: "7 Years",
+        title: "Master Barber",
+       
       },
     ],
     // Sharjah Team
@@ -1164,66 +1157,61 @@ export default function GentlemenTimes() {
         image: "/images/Barbee-Javed.JPG",
         name: "Javed",
         title: "Master Barber",
-        specialty: "Traditional & Modern Cuts",
-        experience: "9 Years",
+        
       },
       {
         image: "/images/Barber -Aman.JPG",
         name: "Aman",
-        title: "Senior Stylist",
-        specialty: "Precision Cuts & Styling",
-        experience: "6 Years",
+        title: "Master Barber",
+        
       },
       {
         image: "/images/Barber -Khalid.JPG",
         name: "Khalid",
-        title: "Beard Specialist",
-        specialty: "Beard Design & Care",
-        experience: "4 Years",
+        title: "Master Barber",
+       
       },
       {
         image: "/images/Service-Apon.JPG",
         name: "Apon",
-        title: "Grooming Expert",
-        specialty: "Premium Services",
-        experience: "5 Years",
+        title: "Master Barber",
+     
       },
 
       {
         image: "/images/Service-Poonam.JPG",
         name: "Poonam",
-        title: "Grooming Expert",
-        specialty: "Premium Services",
-        experience: "5 Years",
+        title: "Master Barber",
+      
       },
     ],
   ];
 
   const testimonials = [
     {
-      name: "Omar Al-Mahmoud",
+      name: "Willian Miguel",
       rating: 5,
       quote:
-        "Exceptional service and attention to detail. The best grooming experience in Dubai!",
+        "Best salon in Dubai! Excellent service—thanks to Irshad for taking great care of my hair, and the team for amazing nails and skincare. I’ll miss you all!.A hug from your Brazilian friend.",
       avatar: "/placeholder.svg?height=80&width=80",
     },
     {
-      name: "James Wilson",
+      name: "Abdullah Alshehri",
       rating: 5,
-      quote: "Professional staff and luxurious atmosphere. Highly recommended!",
+      quote: "I had an excellent haircut with Khalid. He’s professional, friendly, and pays attention to every detail. Truly one of the best barbers I’ve ever met—highly skilled and attentive!",
       avatar: "/placeholder.svg?height=80&width=80",
     },
     {
-      name: "Ahmed Hassan",
+      name: "Nassim Hessas",
       rating: 5,
       quote:
-        "Been coming here for years. Consistently excellent quality and service.",
+        "This is my second visit, and TGT never disappoints! Calm atmosphere, kind staff, and Mathew always gives a professional haircut that boosts my confidence. Highly recommend!",
       avatar: "/placeholder.svg?height=80&width=80",
     },
     {
-      name: "Mohammed Ali",
+      name: "Rohit Ayillath",
       rating: 4,
-      quote: "Great haircut and friendly staff. Will definitely be back!",
+      quote: "TGT offers a top-notch ambience with premium products and expert stylists. Irshad is my go-to stylist-friendly, professional, and always giving great styling and hair care tips!",
       avatar: "/placeholder.svg?height=80&width=80",
     },
   ];
@@ -1240,6 +1228,12 @@ export default function GentlemenTimes() {
   const handleBookNowClick = () => {
     setShowNewStoreDialog(true);
   };
+  // const [IsBookingPopupOpen, setIsBookingPopupOpen] = useState(false);
+  
+
+  // const handleBookPackageClick = () => {
+  //   setIsBookingPopupOpen(true);
+  // };
 
   const handleLocationTabClick = (index: number) => {
     setSelectedLocationIndex(index);
@@ -1253,7 +1247,7 @@ export default function GentlemenTimes() {
     <div className="min-h-screen luxury-gradient text-foreground">
       <ScrollProgress />
       <FloatingElements />
-      <Header onBookNowClick={handleBookNowClick} />
+      <Header onBookNowClick={handleBookPackageClick} />
       <BookingPopup
         isOpen={IsBookingPopupOpen}
         onClose={() => setIsBookingPopupOpen(false)}
@@ -1422,7 +1416,7 @@ export default function GentlemenTimes() {
                 ease: "linear",
               }}
             />
-            <Badge className="bg-gold text-charcoal mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg px-3 sm:px-4 py-1 sm:py-2 relative z-10">
+            <Badge className="bg-gold hover:bg-gold/90 hover-glow text-charcoal mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg px-3 sm:px-4 py-1 sm:py-2 relative z-10">
               HAPPY HOURS OFFER
             </Badge>
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif text-gold mb-3 sm:mb-4 relative z-10">
@@ -1464,7 +1458,7 @@ export default function GentlemenTimes() {
             >
               <Button
                 className="bg-gold hover:bg-gold/90 text-charcoal px-6 sm:px-8 py-2 sm:py-3 hover-glow text-sm sm:text-base"
-                onClick={handleBookNowClick}
+                onClick={handleBookPackageClick}
               >
                 Claim Offer
               </Button>
@@ -1568,12 +1562,7 @@ export default function GentlemenTimes() {
                           ))}
                         </ul>
 
-                        {/* <Button
-  className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300"
-  onClick={handleBookPackageClick}
->
-  Book This Package
-</Button> */}
+           
 
                         <Button
                           className="bg-gold hover:bg-gold/90 text-charcoal w-full py-3 font-semibold hover-glow transition-all duration-300"
@@ -1988,12 +1977,7 @@ export default function GentlemenTimes() {
                       <p className="text-foreground/90 mb-1 text-sm lg:text-base">
                         {member.title}
                       </p>
-                      <p className="text-xs lg:text-sm text-foreground/70 mb-2">
-                        {member.specialty}
-                      </p>
-                      <Badge className="bg-gold/20 text-gold text-xs">
-                        {member.experience}
-                      </Badge>
+                     
                     </div>
                   </motion.div>
                 ))}
@@ -2066,7 +2050,7 @@ export default function GentlemenTimes() {
               >
                 <div className="mb-4 sm:mb-6 premium-card rounded-lg p-4 overflow-hidden">
                   <img
-                    src="/placeholder.svg?height=300&width=400"
+                    src="/images/dubai.png"
                     alt="Dubai Location"
                     className="w-full h-48 sm:h-64 object-cover rounded-lg shadow-lg"
                   />
@@ -2475,14 +2459,14 @@ export default function GentlemenTimes() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-gold transition-colors"
+            className="hover:text-gold transition-colors "
           >
             {locations[0].phone}
           </a>
         </li>
         <li className="flex items-start gap-2 justify-center md:justify-start">
           <MapPin className="text-gold flex-shrink-0 mt-0.5" size={16} />
-          <span className="text-xs sm:text-sm">{locations[0].address}</span>
+          <span className="text-xs sm:text-sm ">{locations[0].address}</span>
         </li>
       </ul>
     </div>
